@@ -1,0 +1,234 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "RentalX Documentation",
+    "description": "This is an API Rent",
+    "version": "1.0.0",
+    "contact": { "email": "alisson@gmail.com" }
+  },
+  "paths": {
+    "/users": {
+      "post":{
+        "tags": ["Users"],
+        "summary": "Create a user",
+        "description": "Create a new user",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": { "type": "string" },
+                  "email": { "type": "string" }
+                },
+                "example": {
+                  "name": "your name here!",
+                  "email": "youremail@domain.com"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "created"
+          },
+          "500": { "description": "User already exist" }
+        }
+      },
+      "get":{
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "header",
+            "description": "Current user ID.",
+            "required": true,
+            "style": "simple"
+          }
+        ],
+        "tags": ["Users"],
+        "summary": "List users",
+        "description": "List all users if user_id is administrator",
+        "request":{
+          
+        },
+        "responses": {
+          "400":{
+            "description": "it didn't informed user_id.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type":"object",
+                  "properties": {"error":{"type":"string"}}
+                }
+              }
+            }
+          },
+          "500":{
+            "description": "List all users.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type":"object",
+                  "properties": {"error":{"type":"string"}}
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "List all users.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "properties": {
+                      "id": { "type": "string" },
+                      "admin": { "type": "boolean" },
+                      "name": { "type": "string" },
+                      "email": { "type": "string" },
+                      "created_at": { "type": "string" },
+                      "updated_at": { "type": "string" }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }      
+    },
+    "/users/{id}": {
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "description": "Current user ID.",
+          "required": true,
+          "schema": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "style": "simple"
+        }
+      ],
+      "get":{
+        "tags": ["Users"],
+        "summary": "User detail",
+        "description": "It shows the detail about current user",
+        "responses": {
+          "200": {
+            "description": "It was listed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "properties": {
+                      "id": { "type": "string" },
+                      "admin": { "type": "boolean" },
+                      "name": { "type": "string" },
+                      "email": { "type": "string" },
+                      "created_at": { "type": "string" },
+                      "updated_at": { "type": "string" }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400":{
+            "description": "it didn't informed user_id.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type":"object",
+                  "properties": {"error":{"type":"string"}}
+                }
+              }
+            }
+          },
+          "500":{
+            "description": "List all users.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type":"object",
+                  "properties": {"error":{"type":"string"}}
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/{id}/admin": {
+       "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "description": "Current user ID.",
+          "required": true,
+          "schema": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "style": "simple"
+        }
+      ],
+      "patch":{
+        "tags": ["Users"],
+        "summary": "Set user like admin",
+        "description": "Set a user link administrator",
+        "responses": {
+          "200": {
+            "description": "It was listed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "properties": {
+                      "id": { "type": "string" },
+                      "admin": { "type": "boolean" },
+                      "name": { "type": "string" },
+                      "email": { "type": "string" },
+                      "created_at": { "type": "string" },
+                      "updated_at": { "type": "string" }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400":{
+            "description": "it didn't informed user_id.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type":"object",
+                  "properties": {"error":{"type":"string"}}
+                }
+              }
+            }
+          },
+          "500":{
+            "description": "List all users.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type":"object",
+                  "properties": {"error":{"type":"string"}}
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
